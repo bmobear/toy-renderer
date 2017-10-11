@@ -3,10 +3,13 @@ main.cpp
 an entry point for 3D model renderer
 
 Toy Leksut
-10/11/2017
 */
 
 #include "main.h"
+
+GLuint fbo_query, fbo_query_color, fbo_query_depth;
+GLuint fbo_render, fbo_render_color, fbo_render_depth;
+
 
 int main(int argc, char **argv)
 {
@@ -17,6 +20,7 @@ int main(int argc, char **argv)
 	glutCreateWindow("Hello World Window");
 	//glutHideWindow();
 
+	// initialize glew
 	GLenum err = glewInit();
 	if (GLEW_OK != err)
 	{
@@ -24,4 +28,13 @@ int main(int argc, char **argv)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+
+	// initialize framebuffers 
+	initFBO(fbo_query, fbo_query_color, fbo_query_depth);
+	initFBO(fbo_render, fbo_render_color, fbo_render_depth);
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
+
+	// wait to exit
+	getchar();
+	return 0;
 }
