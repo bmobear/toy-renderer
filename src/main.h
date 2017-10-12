@@ -27,7 +27,8 @@ extern GLuint fbo_render, fbo_render_color, fbo_render_depth;	// fixed size base
 //------------------------------------------------------------
 
 // renderer.cpp
-
+extern void initScene();
+extern void display();
 
 // framebuffer.cpp
 extern void initFBO(GLuint& framebuffer, GLuint& colorbuffer, GLuint& depthbuffer);

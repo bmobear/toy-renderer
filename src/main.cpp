@@ -34,6 +34,17 @@ int main(int argc, char **argv)
 	initFBO(fbo_render, fbo_render_color, fbo_render_depth);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
 
+	// initialize scene
+	initScene();
+
+	// start rendering
+	glutDisplayFunc(display);
+	glutMainLoop();
+
+	// clean up
+	cleanupFBO(fbo_query, fbo_query_color, fbo_query_depth);
+	cleanupFBO(fbo_render, fbo_render_color, fbo_render_depth);
+
 	// wait to exit
 	getchar();
 	return 0;
