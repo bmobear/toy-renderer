@@ -10,6 +10,11 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 
+// OpenMesh
+#include <OpenMesh/Core/IO/MeshIO.hh>
+#include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
+#include <OpenMesh/Core/Geometry/VectorT.hh>
+
 /*
 	NAMESPACE
 */
