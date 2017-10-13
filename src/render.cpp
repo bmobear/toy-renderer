@@ -23,6 +23,8 @@ void initScene()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
+	glShadeModel(GL_SMOOTH);
+
 	/*
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
@@ -61,6 +63,27 @@ void initScene()
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, col3);
 	glLightfv(GL_LIGHT2, GL_SPECULAR, col3);
 	*/
+
+	// material
+	GLfloat mat_specular[] = { 1.0, 1.0, 1.0, 1.0 };
+	GLfloat mat_shininess[] = { 50.0 };
+	glMaterialfv(GL_FRONT, GL_SPECULAR, mat_specular);
+	glMaterialfv(GL_FRONT, GL_SHININESS, mat_shininess);
+
+	// light 0
+	GLfloat light0_position[] = { 0.0, 0.0, 1.0, 0.0 };
+	glLightfv(GL_LIGHT0, GL_POSITION, light0_position);
+
+	// light 1
+	GLfloat light1_position[] = { 0.0, 1.0, 0.0, 0.0 };
+	glLightfv(GL_LIGHT1, GL_POSITION, light1_position);
+
+
+	
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	//glEnable(GL_LIGHT1);
+
 	// set view
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
