@@ -89,19 +89,19 @@ void setMeshView(MooMesh& moomesh)
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	glGetDoublev(GL_MODELVIEW_MATRIX, modelview_matrix);
-	float x = -float(modelview_matrix[0] * moomesh.center[0] + 
+	moomesh.translation[0] = -float(modelview_matrix[0] * moomesh.center[0] + 
 		modelview_matrix[4] * moomesh.center[1] +
 		modelview_matrix[8] * moomesh.center[2] +
 		modelview_matrix[12]);
-	float y = -float(modelview_matrix[1] * moomesh.center[0] +
+	moomesh.translation[1] = -float(modelview_matrix[1] * moomesh.center[0] +
 		modelview_matrix[5] * moomesh.center[1] +
 		modelview_matrix[9] * moomesh.center[2] +
 		modelview_matrix[13]);
-	float z = -float(modelview_matrix[2] * moomesh.center[0] +
+	moomesh.translation[2] = -float(modelview_matrix[2] * moomesh.center[0] +
 		modelview_matrix[6] * moomesh.center[1] +
 		modelview_matrix[10] * moomesh.center[2] +
 		modelview_matrix[14] + 3.0*moomesh.radius);
-	glTranslated(x, y, z);
+	glTranslated(moomesh.translation[0], moomesh.translation[1], moomesh.translation[2]);
 	glMultMatrixd(modelview_matrix);
 	glGetDoublev(GL_MODELVIEW_MATRIX, moomesh.modelview_matrix);
 }

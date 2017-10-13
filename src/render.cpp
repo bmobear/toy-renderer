@@ -12,6 +12,7 @@ void initScene();
 void display();
 void idle();
 void setPose(const MooMesh& moomesh);
+void rotateMesh(const MooMesh& moomesh, int axis_id, float angle);
 void renderMesh(const MooMesh& moomesh, int colorMode);
 
 // initialize scene, set lighting
@@ -22,12 +23,11 @@ void initScene()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_CULL_FACE);
-
+	/*
 	glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
 	glLightModeli(GL_LIGHT_MODEL_LOCAL_VIEWER, GL_FALSE);
 
 	// material
-	/*
 	GLfloat mat_a[] = { 0.2f, 0.2f, 0.2f, 1.0f };
 	GLfloat mat_d[] = { .7f , .7f, .7f, 1.0f }; //{0.4f, 0.4f, 0.4f, 1.0f};
 	GLfloat mat_s[] = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -55,52 +55,31 @@ void initScene()
 	glLightfv(GL_LIGHT1, GL_POSITION, pos2);
 	glLightfv(GL_LIGHT1, GL_DIFFUSE, col2);
 	glLightfv(GL_LIGHT1, GL_SPECULAR, col2);
-
+	
 	glEnable(GL_LIGHT2);
 	glLightfv(GL_LIGHT2, GL_POSITION, pos3);
 	glLightfv(GL_LIGHT2, GL_DIFFUSE, col3);
 	glLightfv(GL_LIGHT2, GL_SPECULAR, col3);
 	*/
-
 	// set view
 	glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
 
 	// set projection matrix
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-
-	// scene pos and size
-/*	glMatrixMode(GL_MODELVIEW);
+	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	glGetDoublev(GL_MODELVIEW_MATRIX, modelview_matrix_);
-	set_scene(Vec3f(0.0, 0.0, 0.0), 1.0);
-
-	// projection
-	near_ = 0.1f;
-	far_ = 100.0;
-	fovy_ = 45.0;
-*/
 }
 
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-	// draw
-	/*
-	glColor3f(1.0f, 0.0f, 0.0f); 
-	glBegin(GL_QUADS);
-	glVertex2f(-0.25f, 0.25f); // vertex 1
-	glVertex2f(-0.5f, -0.25f); // vertex 2
-	glVertex2f(0.5f, -0.25f); // vertex 3
-	glVertex2f(0.25f, 0.25f); // vertex 4
-	glEnd();
-	*/
-	// end of draw
 
 	MooMesh moomesh;
 	getTestMesh(moomesh);
 	setPose(moomesh);
+	rotateMesh(moomesh, X_AXIS, 20);
+	rotateMesh(moomesh, Y_AXIS, 20);
 	renderMesh(moomesh);
 
 	glutSwapBuffers();
@@ -108,12 +87,6 @@ void display()
 
 void idle()
 {
-/*	MooMesh moomesh;
-	getTestMesh(moomesh);
-
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
-	renderMesh(moomesh);
-	*/
 }
 
 void setPose(const MooMesh& moomesh)
@@ -127,6 +100,17 @@ void setPose(const MooMesh& moomesh)
 	glLoadMatrixd(moomesh.modelview_matrix);
 }
 
+void rotateMesh(const MooMesh& moomesh, int axis_id, float angle)
+{
+	float axis[3] = { 0.0, 0.0, 0.0 };
+	axis[axis_id] = 1.0;
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	glTranslated(moomesh.translation[0], moomesh.translation[1], moomesh.translation[2]);
+	glRotated(angle, axis[0], axis[1], axis[2]);
+	glTranslated(-moomesh.translation[0], -moomesh.translation[1], -moomesh.translation[2]);
+	glMultMatrixd(moomesh.modelview_matrix);
+}
 
 /*
 render mesh with an option to use vertex color or texture map
@@ -169,3 +153,4 @@ void renderMesh(const MooMesh& moomesh, int colorMode)
 	glDisable(GL_COLOR_MATERIAL);
 	glDisable(GL_LIGHTING);
 }
+

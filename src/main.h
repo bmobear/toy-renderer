@@ -22,6 +22,9 @@
 #define RENDER_TEXTURE_MAP	-1
 #define WINDOW_WIDTH		512
 #define WINDOW_HEIGHT		512
+#define X_AXIS				0
+#define Y_AXIS				1
+#define	Z_AXIS				2
 
 /*
 	NAMESPACE
@@ -47,6 +50,7 @@ public:
 	vector<uint> faceIds;
 	double projection_matrix[16];
 	double modelview_matrix[16];
+	float translation[3];
 };
 
 //------------------------------------------------------------
