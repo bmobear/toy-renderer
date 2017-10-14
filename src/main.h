@@ -7,6 +7,9 @@
 // IO
 #include <stdio.h>
 
+// OpenCV
+#include <opencv2/opencv.hpp>
+
 // OpenMesh
 #include <OpenMesh/Core/IO/MeshIO.hh>
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
@@ -39,6 +42,7 @@
 	NAMESPACE
 */
 using namespace std;
+using namespace cv;
 typedef OpenMesh::TriMesh_ArrayKernelT<>  Mesh;
 
 
