@@ -9,13 +9,13 @@ Toy Leksut
 
 GLuint fbo_query, fbo_query_color, fbo_query_depth;
 GLuint fbo_render, fbo_render_color, fbo_render_depth;
+MooMesh mainMesh;
 
 
 int main(int argc, char **argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
-	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Hello World Window");
 
 	// initialize glew
@@ -34,9 +34,16 @@ int main(int argc, char **argv)
 	// initialize scene
 	initScene();
 
-	// start rendering
+
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
+
+#ifdef INTERACTIVE_MODE
+	glutSpecialUpFunc(specialKeyUp);
+#endif
+
+	
+
 	glutMainLoop();
 
 	// clean up

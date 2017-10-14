@@ -10,6 +10,7 @@ Toy Leksut
 // extern
 void loadMesh(const string meshFile, MooMesh& out_moomesh);
 void getTestMesh(MooMesh& testmesh);
+void updateMeshView(MooMesh& moomesh);
 
 // intern
 void updateMeshRadius(MooMesh& moomesh);
@@ -103,6 +104,12 @@ void setMeshView(MooMesh& moomesh)
 		modelview_matrix[14] + 3.0*moomesh.radius);
 	glTranslated(moomesh.translation[0], moomesh.translation[1], moomesh.translation[2]);
 	glMultMatrixd(modelview_matrix);
+	glGetDoublev(GL_MODELVIEW_MATRIX, moomesh.modelview_matrix);
+}
+
+void updateMeshView(MooMesh& moomesh)
+{
+	glGetDoublev(GL_PROJECTION_MATRIX, moomesh.projection_matrix);
 	glGetDoublev(GL_MODELVIEW_MATRIX, moomesh.modelview_matrix);
 }
 
