@@ -6,6 +6,7 @@
 */
 // IO
 #include <stdio.h>
+#include <fstream>
 
 // OpenCV
 #include <opencv2/opencv.hpp>
@@ -98,3 +99,10 @@ extern void loadMesh(const string meshFile, MooMesh& out_moomesh);
 extern void getTestMesh(MooMesh& testmesh);
 extern void updateMeshView(MooMesh& moomesh);
 
+
+//------------------------------------------------------------
+//================ =      IO / UTILS       ===================
+//------------------------------------------------------------
+
+// utils.cpp
+extern void setIO(const string filelist, const string output_dir);

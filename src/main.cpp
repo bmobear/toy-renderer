@@ -7,6 +7,7 @@ Toy Leksut
 
 #include "main.h"
 
+
 GLuint fbo_query, fbo_query_color, fbo_query_depth;
 GLuint fbo_render, fbo_render_color, fbo_render_depth;
 MooMesh mainMesh;
@@ -14,6 +15,15 @@ MooMesh mainMesh;
 
 int main(int argc, char **argv)
 {
+	/*
+	if (argc != 3) {
+		printf("Usage: renderer <filelist.txt> <output_dir>\n");
+		exit(-1);
+	}
+	setIO(argv[1], argv[2]);
+	*/
+
+	///////////// init
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
 	glutCreateWindow("Hello World Window");
