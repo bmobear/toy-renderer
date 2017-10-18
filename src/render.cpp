@@ -22,7 +22,8 @@ void initScene()
 	glDisable(GL_DITHER);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_TEXTURE_2D);
-	glEnable(GL_CULL_FACE);
+	//glEnable(GL_CULL_FACE);
+	//glCullFace(GL_BACK);
 	glShadeModel(GL_SMOOTH);
 
 	//glLightModeli(GL_LIGHT_MODEL_TWO_SIDE, GL_FALSE);
