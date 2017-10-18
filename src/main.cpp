@@ -11,17 +11,25 @@ Toy Leksut
 GLuint fbo_query, fbo_query_color, fbo_query_depth;
 GLuint fbo_render, fbo_render_color, fbo_render_depth;
 MooMesh mainMesh;
-
+bool test_mode = false;
 
 int main(int argc, char **argv)
 {
-	/*
-	if (argc != 3) {
-		printf("Usage: renderer <filelist.txt> <output_dir>\n");
-		exit(-1);
+	switch(argc) {
+		case 1:
+			// test mode: draw a cube
+			printf("Test mode: draw a cube\n");
+			test_mode = true;
+			break;
+		case 3:
+			// read from filelist.txt
+			setIO(argv[1], argv[2]);
+			break;
+		default:
+			printf("Usage: toy-renderer <filelist.txt> <output_dir>\n");
+			exit(-1);
 	}
-	setIO(argv[1], argv[2]);
-	*/
+	
 
 	///////////// init
 	glutInit(&argc, argv);

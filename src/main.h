@@ -64,18 +64,21 @@ public:
 
 
 /*
-	EXTERNAL VARIABLES
+	GLOBAL VARIABLES
 */
 extern GLuint fbo_query, fbo_query_color, fbo_query_depth;		// dynamic size based on query image
 extern GLuint fbo_render, fbo_render_color, fbo_render_depth;	// fixed size based on frontal.glcam
 extern MooMesh mainMesh;
+extern vector<string> input_list;
+extern string output_dir;
+extern bool test_mode;
 
 
 //------------------------------------------------------------
 //=====================    RENDERER    =======================
 //------------------------------------------------------------
 
-// renderer.cpp
+// render.cpp
 extern void initScene();
 extern void display();
 extern void idle();

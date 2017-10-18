@@ -13,11 +13,14 @@ void transferDraw(Mat& out_img);
 void writeImage(const Mat& img, const string outfile);
 void showImage(const Mat& img);
 
+vector<string> input_list;
+string output_dir;
+
 ///////////////////////////////////////////////////////////////////
 
 void setIO(const string filelist, const string output_dir)
 {
-	// CANNOT READ FILE YET
+
 	ifstream in;
 	in.open(filelist.c_str());
 	if (!in.is_open()) {
@@ -25,10 +28,14 @@ void setIO(const string filelist, const string output_dir)
 		exit(-1);
 	}
 	string str;
+	input_list.clear();
 	while (getline(in, str))
 	{
+		input_list.push_back(str);
 		printf(" read %s\n", str.c_str());
 	}
+	
+
 }
 
 void transferDraw(Mat& out_img)
