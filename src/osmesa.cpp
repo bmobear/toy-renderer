@@ -5,7 +5,7 @@
 
 #include "main.h"
 
-#ifdef WINDOWLESS_RENDER
+#ifdef OFFSCREEN_RENDER
 
 // extern
 void initOSMesaContext();
@@ -24,13 +24,13 @@ void initOSMesaContext()
 	     cout << "OSMesaCreateContext failed!\n";
 	     exit(1);
 	}
-	pbuffer = malloc( INIT_WIDTH * INIT_HEIGHT * 4 * sizeof(GLuint) );
+	pbuffer = malloc( WINDOW_WIDTH * WINDOW_HEIGHT * 4 * sizeof(GLuint) );
 	if (!pbuffer) {
 	      cout << "Alloc image buffer failed!\n";
 	      exit(1);
 	}
 	/* Bind the buffer to the context and make it current */
-	if (!OSMesaMakeCurrent( ctx, pbuffer, GL_UNSIGNED_BYTE, INIT_WIDTH, INIT_HEIGHT )) {
+	if (!OSMesaMakeCurrent( ctx, pbuffer, GL_UNSIGNED_BYTE, WINDOW_WIDTH, WINDOW_HEIGHT )) {
 	      cout << "OSMesaMakeCurrent failed!\n";
 	      exit(1);
 	}

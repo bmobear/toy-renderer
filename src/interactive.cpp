@@ -7,6 +7,7 @@ Toy Leksut
 
 #include "main.h"
 
+#ifndef OFFSCREEN_RENDER
 
 // extern
 void specialKeyUp(int key, int x, int y);
@@ -35,3 +36,5 @@ void specialKeyUp(int key, int x, int y)
 	}
 	glutPostRedisplay();
 }
+
+#endif

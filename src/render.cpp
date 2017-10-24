@@ -91,11 +91,14 @@ void initScene()
 	setPose(mainMesh);
 }
 
+
 void display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	renderMesh(mainMesh);
+#ifndef OFFSCREEN_RENDER	
 	glutSwapBuffers();
+#endif
 }
 
 void idle()

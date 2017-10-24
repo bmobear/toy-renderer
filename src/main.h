@@ -3,8 +3,7 @@
 /*
 	MODE
 */
-#define INTERACTIVE_MODE
-#undef OFFSCREEN_RENDER // use osmesa
+#undef OFFSCREEN_RENDER // use GLX
 
 
 /*
@@ -26,12 +25,12 @@
 #include <OpenMesh/Core/Geometry/VectorT.hh>
 
 // OpenGL
+#include <GL/glew.h>
 #ifdef OFFSCREEN_RENDER
-	#define GL_GLEXT_PROTOTYPES 1
-	#define <GL/glu.h>
-	#define <GL/osmesa.h>
+	#include <X11/Xlib.h>
+	#include <X11/Xutil.h>
+	#include <GL/glx.h>
 #else
-	#include <GL/glew.h>
 	#include <GL/glut.h>
 #endif
 
@@ -98,8 +97,13 @@ extern void initFBO(GLuint& framebuffer, GLuint& colorbuffer, GLuint& depthbuffe
 extern void cleanupFBO(GLuint& framebuffer, GLuint& colorbuffer, GLuint& depthbuffer);
 extern void updateFBO(GLuint& colorbuffer, GLuint& depthbuffer, int winWidth, int winHeight);
 
-// interactive.cpp
-extern void specialKeyUp(int key, int x, int y);
+#ifdef OFFSCREEN_RENDER
+	// oglxcontext.cpp
+	extern void initGLXContext();
+#else
+	// interactive.cpp
+	extern void specialKeyUp(int key, int x, int y);
+#endif
 
 //------------------------------------------------------------
 //=================      MESH PROCESSING     =================

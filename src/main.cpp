@@ -31,15 +31,29 @@ int main(int argc, char **argv)
 	}
 	
 
-	///////////// init
-#ifdef WINDOWLESS_RENDER
-	initOSMesaContext();
+#ifdef OFFSCREEN_RENDER
+	initGLXContext();
+#else
+	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
+	glutCreateWindow("Toy Renderer");
+#endif
+
+	// initialize glew (after getting context)
+	GLenum err = glewInit();
+	if (GLEW_OK != err) {
+		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
+	}
+	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
+
+#ifdef OFFSCREEN_RENDER
 	initFBO(fbo_render, fbo_render_color, fbo_render_depth);
 	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
+	initScene();
 
 	// process each 3D model one by one
 	if(input_list.empty()) {
-		printf("empty")
+		printf("empty");
 	}
 	else {
 		printf("%d models to render", input_list.size());
@@ -50,26 +64,16 @@ int main(int argc, char **argv)
 
 	// clean up
 	cleanupFBO(fbo_render, fbo_render_color, fbo_render_depth);
+	OSMesaDestroyContext(ctx);
 
-#else
-	glutInit(&argc, argv);
-	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
-	glutCreateWindow("Toy Renderer");
+#else 
 
-	// initialize glew
-	GLenum err = glewInit();
-	if (GLEW_OK != err) {
-		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
-	}
-	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
-
-	// initialize scene
 	initScene();
-
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
 	glutSpecialUpFunc(specialKeyUp);
 	glutMainLoop();
+
 #endif
 
 	// wait to exit
