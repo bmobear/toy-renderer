@@ -1,5 +1,11 @@
 #pragma once
 
+/*
+	MODE
+*/
+#define INTERACTIVE_MODE
+#undef OFFSCREEN_RENDER // use osmesa
+
 
 /*
 	INCLUDE
@@ -7,6 +13,9 @@
 // IO
 #include <stdio.h>
 #include <fstream>
+
+// boost
+#include <boost/filesystem.hpp>
 
 // OpenCV
 #include <opencv2/opencv.hpp>
@@ -17,15 +26,14 @@
 #include <OpenMesh/Core/Geometry/VectorT.hh>
 
 // OpenGL
-#include <GL/glew.h>
-#include <GL/glut.h>
-
-
-/*
-	MODE
-*/
-#define INTERACTIVE_MODE
-
+#ifdef OFFSCREEN_RENDER
+	#define GL_GLEXT_PROTOTYPES 1
+	#define <GL/glu.h>
+	#define <GL/osmesa.h>
+#else
+	#include <GL/glew.h>
+	#include <GL/glut.h>
+#endif
 
 /*
 	DEFINE
@@ -109,3 +117,8 @@ extern void updateMeshView(MooMesh& moomesh);
 
 // utils.cpp
 extern void setIO(const string filelist, const string output_dir);
+extern void transferDraw(Mat& out_img);
+extern void writeImage(const Mat& img, const string outfile);
+extern void showImage(const Mat& img);
+extern bool verifyDir(const string pathstr);
+extern bool verifyFile(const string pathstr);

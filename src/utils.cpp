@@ -6,13 +6,15 @@ Toy Leksut
 */
 
 #include "main.h"
+using namespace boost::filesystem;
 
 // extern
 void setIO(const string filelist, const string output_dir);
 void transferDraw(Mat& out_img);
 void writeImage(const Mat& img, const string outfile);
 void showImage(const Mat& img);
-
+bool verifyDir(const string pathstr);
+bool verifyFile(const string pathstr);
 vector<string> input_list;
 string output_dir;
 
@@ -31,8 +33,10 @@ void setIO(const string filelist, const string output_dir)
 	input_list.clear();
 	while (getline(in, str))
 	{
-		input_list.push_back(str);
-		printf(" read %s\n", str.c_str());
+		if(verifyFile(str)) {
+			input_list.push_back(str);
+			printf(" read %s\n", str.c_str());
+		}
 	}
 	
 
@@ -57,3 +61,12 @@ void showImage(const Mat& img)
 	waitKey(0);
 }
 
+bool verifyDir(const string pathstr)
+{
+	return is_directory(path(pathstr));
+}
+
+bool verifyFile(const string pathstr)
+{
+	return is_regular_file(path(pathstr));
+}
