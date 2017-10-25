@@ -11,12 +11,13 @@ Toy Leksut
 void loadMesh(const string meshFile, MooMesh& out_moomesh);
 void getTestMesh(MooMesh& testmesh);
 void updateMeshView(MooMesh& moomesh);
+void setMeshView(MooMesh& moomesh);
 
 // intern
 void updateMeshRadius(MooMesh& moomesh);
 void updateMeshFaceIds(MooMesh& moomesh);
 void setMeshVertexColor(MooMesh& moomesh);
-void setMeshView(MooMesh& moomesh);
+
 
 void loadMesh(const string meshFile, MooMesh& out_moomesh)
 {

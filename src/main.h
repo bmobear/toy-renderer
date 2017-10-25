@@ -71,7 +71,7 @@ extern GLuint fbo_query, fbo_query_color, fbo_query_depth;		// dynamic size base
 extern GLuint fbo_render, fbo_render_color, fbo_render_depth;	// fixed size based on frontal.glcam
 extern MooMesh mainMesh;
 extern vector<string> input_list;
-extern string output_dir;
+extern boost::filesystem::path output_dir;
 extern bool test_mode;
 
 
@@ -106,6 +106,7 @@ extern void updateFBO(GLuint& colorbuffer, GLuint& depthbuffer, int winWidth, in
 extern void loadMesh(const string meshFile, MooMesh& out_moomesh);
 extern void getTestMesh(MooMesh& testmesh);
 extern void updateMeshView(MooMesh& moomesh);
+extern void setMeshView(MooMesh& moomesh);
 
 
 //------------------------------------------------------------
@@ -115,7 +116,7 @@ extern void updateMeshView(MooMesh& moomesh);
 // utils.cpp
 extern void setIO(const string filelist, const string output_dir);
 extern void transferDraw(Mat& out_img);
-extern void writeImage(const Mat& img, const string outfile);
+extern void writeImage(const Mat& img, const boost::filesystem::path outfile);
 extern void showImage(const Mat& img);
 extern bool verifyDir(const string pathstr);
 extern bool verifyFile(const string pathstr);

@@ -11,16 +11,16 @@ using namespace boost::filesystem;
 // extern
 void setIO(const string filelist, const string output_dir);
 void transferDraw(Mat& out_img);
-void writeImage(const Mat& img, const string outfile);
+void writeImage(const Mat& img, const path outfile);
 void showImage(const Mat& img);
 bool verifyDir(const string pathstr);
 bool verifyFile(const string pathstr);
 vector<string> input_list;
-string output_dir;
+path output_dir;
 
 ///////////////////////////////////////////////////////////////////
 
-void setIO(const string filelist, const string output_dir)
+void setIO(const string filelist, const string out_dir)
 {
 
 	ifstream in;
@@ -35,11 +35,10 @@ void setIO(const string filelist, const string output_dir)
 	{
 		if(verifyFile(str)) {
 			input_list.push_back(str);
-			printf(" read %s\n", str.c_str());
 		}
 	}
 	
-
+	output_dir = path(out_dir);
 }
 
 void transferDraw(Mat& out_img)
@@ -51,9 +50,9 @@ void transferDraw(Mat& out_img)
 	flip(out_img, out_img, 0);
 }
 
-void writeImage(const Mat& img, const string outfile)
+void writeImage(const Mat& img, const path outfile)
 {
-	imwrite(outfile, img);
+	imwrite(outfile.string(), img);
 }
 
 void showImage(const Mat& img)

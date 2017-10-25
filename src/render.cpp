@@ -6,6 +6,7 @@ Toy Leksut
 */
 
 #include "main.h"
+using namespace boost::filesystem;
 
 // extern
 void initScene();
@@ -111,14 +112,50 @@ void dummyDisplay()
 
 void render()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	renderMesh(mainMesh);
+	int min_x = 0;
+	int max_x = 0;
+	int min_y = -45;
+	int max_y = 45;
+	int rot = 15;
 
-	// test write cube
-	Mat img;
-	transferDraw(img);
-	writeImage(img, output_dir+"testcube.png");
-	printf("wrote image\n");
+	// render loop
+	for(int i=0; i<input_list.size(); i++) {
+		path obj_name = path(input_list[i]).stem();
+		path out_dir = output_dir/obj_name;
+
+		if(!exists(out_dir)){
+			if(!create_directory(out_dir)) {
+				printf("Failed to create output_dir %s\n", out_dir.string().c_str());
+			}
+		}
+
+		printf("\n render %d:%s\n", i, obj_name.string().c_str());
+		int p = 0;
+		for(int x=min_x; x<=max_x; x+=rot) {
+
+			// reset pose
+			setMeshView(mainMesh);
+
+			// rotate around x-axis
+			rotateMesh(mainMesh, X_AXIS, x);
+
+			for(int y=min_y; y<=max_y; y+=rot) {
+				
+				// rotate incrementally around y-axis
+				rotateMesh(mainMesh, Y_AXIS, rot);
+
+				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+				renderMesh(mainMesh);
+
+				Mat img;
+				string img_name = obj_name.string()+"_p"+to_string(p++)+"x"+to_string(x)+"y"+to_string(y)+".png";
+				transferDraw(img);
+				writeImage(img, out_dir/path(img_name));
+
+				printf(" [%d:%d]", x, y);
+			}
+		}
+	}
 
 	// clean up
 	cleanupFBO(fbo_render, fbo_render_color, fbo_render_depth);
