@@ -112,10 +112,10 @@ void dummyDisplay()
 
 void render()
 {
-	int min_x = 0;
-	int max_x = 0;
-	int min_y = -45;
-	int max_y = 45;
+	int min_x = -90;
+	int max_x = 90;
+	int min_y = -90;
+	int max_y = 90;
 	int rot = 15;
 
 	// render loop
