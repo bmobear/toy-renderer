@@ -33,6 +33,7 @@ int main(int argc, char **argv)
 
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
+	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Toy Renderer");
 
 	// initialize glew (after getting context)
@@ -42,17 +43,22 @@ int main(int argc, char **argv)
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-#ifdef INTERACTIVE_MODE
 
+
+#ifdef INTERACTIVE_MODE
 	initScene();
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
 	glutSpecialUpFunc(specialKeyUp);
 	glutMainLoop();
-
+#else
+	initFBO(fbo_render, fbo_render_color, fbo_render_depth);
+	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
+	initScene();
+	glutDisplayFunc(dummyDisplay);
+	glutIdleFunc(render);
+	glutMainLoop();
 #endif
 
-	// wait to exit
-	getchar();
 	return 0;
 }

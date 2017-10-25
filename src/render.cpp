@@ -10,7 +10,9 @@ Toy Leksut
 // extern
 void initScene();
 void display();
+void dummyDisplay();
 void idle();
+void render();
 void setPose(const MooMesh& moomesh);
 void rotateMesh(MooMesh& moomesh, int axis_id, float angle);
 void renderMesh(const MooMesh& moomesh, int colorMode);
@@ -101,6 +103,26 @@ void display()
 
 void idle()
 {
+}
+
+void dummyDisplay()
+{
+}
+
+void render()
+{
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	renderMesh(mainMesh);
+
+	// test write cube
+	Mat img;
+	transferDraw(img);
+	writeImage(img, output_dir+"testcube.png");
+	printf("wrote image\n");
+
+	// clean up
+	cleanupFBO(fbo_render, fbo_render_color, fbo_render_depth);
+	exit(0);
 }
 
 void setPose(const MooMesh& moomesh)

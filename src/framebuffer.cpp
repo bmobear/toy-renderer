@@ -18,8 +18,6 @@ void initColorBuffer(GLuint& colorbuffer);
 void initDepthBuffer(GLuint& depthbuffer);
 
 #define USE_RENDER_COLOR_BUFFER true	// in opposed to texture
-#define INIT_WIDTH		512
-#define INIT_HEIGHT		512
 
 ///////////////////////////////////////////////////////////////////
 
@@ -34,7 +32,7 @@ void initColorBuffer(GLuint& colorbuffer)
 	if (USE_RENDER_COLOR_BUFFER) {
 		glGenRenderbuffers(1, &colorbuffer);
 		glBindRenderbuffer(GL_RENDERBUFFER, colorbuffer);
-		glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, INIT_WIDTH, INIT_HEIGHT);
+		glRenderbufferStorage(GL_RENDERBUFFER, GL_RGBA, WINDOW_WIDTH, WINDOW_HEIGHT);
 		glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 		glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, colorbuffer);
@@ -43,7 +41,7 @@ void initColorBuffer(GLuint& colorbuffer)
 		glEnable(GL_TEXTURE_2D);
 		glGenTextures(1, &colorbuffer);
 		glBindTexture(GL_TEXTURE_2D, colorbuffer);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, INIT_WIDTH, INIT_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, WINDOW_WIDTH, WINDOW_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -53,6 +51,7 @@ void initColorBuffer(GLuint& colorbuffer)
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, colorbuffer, 0);
 	}
 
+	glDrawBuffer(GL_COLOR_ATTACHMENT0);
 	glReadBuffer(GL_COLOR_ATTACHMENT0);
 }
 
@@ -61,7 +60,7 @@ void initDepthBuffer(GLuint& depthbuffer)
 {
 	glGenRenderbuffers(1, &depthbuffer);
 	glBindRenderbuffer(GL_RENDERBUFFER, depthbuffer);
-	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, INIT_WIDTH, INIT_HEIGHT);
+	glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glBindRenderbuffer(GL_RENDERBUFFER, 0);
 
 	glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, depthbuffer);

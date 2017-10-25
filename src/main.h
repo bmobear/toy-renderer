@@ -3,7 +3,7 @@
 /*
 	MODE
 */
-#define INTERACTIVE_MODE
+#undef INTERACTIVE_MODE
 
 
 /*
@@ -82,7 +82,9 @@ extern bool test_mode;
 // render.cpp
 extern void initScene();
 extern void display();
+extern void dummyDisplay();
 extern void idle();
+extern void render();
 extern void renderMesh(const MooMesh& moomesh, int colorMode = 0);
 extern void rotateMesh(MooMesh& moomesh, int axis_id, float angle);
 
