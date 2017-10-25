@@ -48,7 +48,7 @@ include_directories( ${Boost_INCLUDE_DIR} )
 # ToyRenderer
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
-SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -lX11")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x -lX11 -lpthread")
 
 file(GLOB src "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 add_executable(toy-renderer ${src})

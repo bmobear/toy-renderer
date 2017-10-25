@@ -31,13 +31,9 @@ int main(int argc, char **argv)
 	}
 	
 
-#ifdef OFFSCREEN_RENDER
-	initGLXContext();
-#else
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE | GLUT_ALPHA);
 	glutCreateWindow("Toy Renderer");
-#endif
 
 	// initialize glew (after getting context)
 	GLenum err = glewInit();
@@ -46,27 +42,7 @@ int main(int argc, char **argv)
 	}
 	fprintf(stdout, "Status: Using GLEW %s\n", glewGetString(GLEW_VERSION));
 
-#ifdef OFFSCREEN_RENDER
-	initFBO(fbo_render, fbo_render_color, fbo_render_depth);
-	glBindFramebuffer(GL_FRAMEBUFFER, fbo_render);
-	initScene();
-
-	// process each 3D model one by one
-	if(input_list.empty()) {
-		printf("empty");
-	}
-	else {
-		printf("%d models to render", input_list.size());
-	}
-
-	// render
-
-
-	// clean up
-	cleanupFBO(fbo_render, fbo_render_color, fbo_render_depth);
-	OSMesaDestroyContext(ctx);
-
-#else 
+#ifdef INTERACTIVE_MODE
 
 	initScene();
 	glutDisplayFunc(display);

@@ -3,7 +3,7 @@
 /*
 	MODE
 */
-#undef OFFSCREEN_RENDER // use GLX
+#define INTERACTIVE_MODE
 
 
 /*
@@ -26,13 +26,7 @@
 
 // OpenGL
 #include <GL/glew.h>
-#ifdef OFFSCREEN_RENDER
-	#include <X11/Xlib.h>
-	#include <X11/Xutil.h>
-	#include <GL/glx.h>
-#else
-	#include <GL/glut.h>
-#endif
+#include <GL/glut.h>
 
 /*
 	DEFINE
@@ -97,10 +91,7 @@ extern void initFBO(GLuint& framebuffer, GLuint& colorbuffer, GLuint& depthbuffe
 extern void cleanupFBO(GLuint& framebuffer, GLuint& colorbuffer, GLuint& depthbuffer);
 extern void updateFBO(GLuint& colorbuffer, GLuint& depthbuffer, int winWidth, int winHeight);
 
-#ifdef OFFSCREEN_RENDER
-	// oglxcontext.cpp
-	extern void initGLXContext();
-#else
+#ifdef INTERACTIVE_MODE
 	// interactive.cpp
 	extern void specialKeyUp(int key, int x, int y);
 #endif
