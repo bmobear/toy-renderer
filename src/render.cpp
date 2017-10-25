@@ -129,8 +129,9 @@ void render()
 			}
 		}
 
-		printf("\n render %d:%s\n", i, obj_name.string().c_str());
+		loadMesh(input_list[i], mainMesh);
 		int p = 0;
+		printf("\n render %d:%s\n", i, obj_name.string().c_str());
 		for(int x=min_x; x<=max_x; x+=rot) {
 
 			// reset pose
