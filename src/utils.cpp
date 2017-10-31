@@ -23,7 +23,7 @@ path output_dir;
 void setIO(const string filelist, const string out_dir)
 {
 
-	ifstream in;
+	std::ifstream in;
 	in.open(filelist.c_str());
 	if (!in.is_open()) {
 		printf("failed to open %s\n", filelist.c_str());

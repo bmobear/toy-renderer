@@ -112,11 +112,11 @@ void dummyDisplay()
 
 void render()
 {
-	int min_x = -90;
-	int max_x = 90;
-	int min_y = -90;
-	int max_y = 90;
-	int rot = 15;
+	int min_x = -150;
+	int max_x = 180;
+	int min_y = -150;
+	int max_y = 180;
+	int rot = 30;
 
 	// render loop
 	for(int i=0; i<input_list.size(); i++) {

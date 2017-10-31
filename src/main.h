@@ -33,8 +33,8 @@
 */
 #define RENDER_VERTEX_COLOR	1
 #define RENDER_TEXTURE_MAP	-1
-#define WINDOW_WIDTH		256
-#define WINDOW_HEIGHT		256
+#define WINDOW_WIDTH		128
+#define WINDOW_HEIGHT		128
 #define X_AXIS				0
 #define Y_AXIS				1
 #define	Z_AXIS				2
