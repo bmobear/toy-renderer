@@ -22,3 +22,6 @@ Usage: toy-renderer <filelist.txt> <output_dir>
 `filelist.txt` contains a list of 3D object files (type of files must be supported by `OpenMesh` e.g. OFF and OBJ are supported.)
 
 Each 3D object will be rendered in multiple viewpoints and the rendered images will be written to `output_dir/obj_filename/`.
+
+#### Sample rendered images for a single 3D object
+<img src="sample_output.png" width="50%">
