@@ -114,7 +114,7 @@ extern void setMeshView(MooMesh& moomesh);
 //------------------------------------------------------------
 
 // utils.cpp
-extern void setIO(const string filelist, const string output_dir);
+extern int setIO(const string filelist, const string output_dir);
 extern void transferDraw(Mat& out_img);
 extern void writeImage(const Mat& img, const boost::filesystem::path outfile);
 extern void showImage(const Mat& img);

@@ -20,7 +20,7 @@ void renderMesh(const MooMesh& moomesh, int colorMode);
 
 // initialize scene, set lighting
 void initScene()
-{
+{ 
 	glClearColor(1.0, 1.0, 1.0, 1.0);	
 	glDisable(GL_DITHER);
 	glEnable(GL_DEPTH_TEST);
@@ -83,7 +83,7 @@ void initScene()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	glLoadIdentity(); 
 
 	if(test_mode) {
 		getTestMesh(mainMesh);
@@ -119,7 +119,7 @@ void render()
 	int rot = 30;
 
 	// render loop
-	for(int i=0; i<input_list.size(); i++) {
+	for(unsigned int i=0; i<input_list.size(); i++) {
 		path obj_name = path(input_list[i]).stem();
 		path out_dir = output_dir/obj_name;
 
@@ -131,7 +131,7 @@ void render()
 
 		loadMesh(input_list[i], mainMesh);
 		int p = 0;
-		printf("\n render %d:%s\n", i, obj_name.string().c_str());
+		printf("render %d:%s\n", i, obj_name.string().c_str());
 		for(int x=min_x; x<=max_x; x+=rot) {
 
 			// reset pose
@@ -153,7 +153,7 @@ void render()
 				transferDraw(img);
 				writeImage(img, out_dir/path(img_name));
 
-				printf(" [%d:%d]", x, y);
+				//printf(" [%d:%d]", x, y);
 			}
 		}
 	}

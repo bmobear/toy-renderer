@@ -9,7 +9,7 @@ Toy Leksut
 using namespace boost::filesystem;
 
 // extern
-void setIO(const string filelist, const string output_dir);
+int setIO(const string filelist, const string output_dir);
 void transferDraw(Mat& out_img);
 void writeImage(const Mat& img, const path outfile);
 void showImage(const Mat& img);
@@ -20,7 +20,7 @@ path output_dir;
 
 ///////////////////////////////////////////////////////////////////
 
-void setIO(const string filelist, const string out_dir)
+int setIO(const string filelist, const string out_dir)
 {
 
 	std::ifstream in;
@@ -30,15 +30,19 @@ void setIO(const string filelist, const string out_dir)
 		exit(-1);
 	}
 	string str;
-	input_list.clear();
+	input_list.clear(); 
 	while (getline(in, str))
-	{
+	{ 
 		if(verifyFile(str)) {
-			input_list.push_back(str);
+			input_list.push_back(str); 
+		}
+		else {
+			printf("input file %s not found\n", str.c_str());
 		}
 	}
 	
 	output_dir = path(out_dir);
+	return input_list.size();
 }
 
 void transferDraw(Mat& out_img)

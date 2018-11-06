@@ -16,14 +16,19 @@ bool test_mode = false;
 int main(int argc, char **argv)
 {
 	switch(argc) {
+#ifdef INTERACTIVE_MODE
 		case 1:
 			// test mode: draw a cube
 			printf("Test mode: draw a cube\n");
 			test_mode = true;
 			break;
+#endif
 		case 3:
 			// read from filelist.txt
-			setIO(argv[1], argv[2]);
+			if(setIO(argv[1], argv[2]) == 0) {
+				printf("no valid input file\n");
+				exit(-1);
+			}
 			break;
 		default:
 			printf("Usage: toy-renderer <filelist.txt> <output_dir>\n");
@@ -46,7 +51,7 @@ int main(int argc, char **argv)
 
 
 #ifdef INTERACTIVE_MODE
-	initScene();
+	initScene(); 
 	glutDisplayFunc(display);
 	glutIdleFunc(idle);
 	glutSpecialUpFunc(specialKeyUp);
