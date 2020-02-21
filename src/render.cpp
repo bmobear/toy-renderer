@@ -112,10 +112,10 @@ void dummyDisplay()
 
 void render()
 {
-	int min_x = -150;
-	int max_x = 180;
-	int min_y = -150;
-	int max_y = 180;
+	int min_x = 0; 
+	int max_x = 360; 
+	int min_y = 0; 
+	int max_y = 360; 
 	int rot = 30;
 
 	// render loop
@@ -132,18 +132,17 @@ void render()
 		loadMesh(input_list[i], mainMesh);
 		int p = 0;
 		printf("render %d:%s\n", i, obj_name.string().c_str());
-		for(int x=min_x; x<=max_x; x+=rot) {
 
-			// reset pose
-			setMeshView(mainMesh);
 
-			// rotate around x-axis
-			rotateMesh(mainMesh, X_AXIS, x);
-
-			for(int y=min_y; y<=max_y; y+=rot) {
+		for(int x=min_x; x<max_x; x+=rot) {
+			for(int y=min_y; y<max_y; y+=rot) {
 				
-				// rotate incrementally around y-axis
-				rotateMesh(mainMesh, Y_AXIS, rot);
+				// reset pose
+				setMeshView(mainMesh);
+
+				// rotate 
+				rotateMesh(mainMesh, X_AXIS, x);
+				rotateMesh(mainMesh, Y_AXIS, y);
 
 				glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 				renderMesh(mainMesh);
@@ -153,9 +152,10 @@ void render()
 				transferDraw(img);
 				writeImage(img, out_dir/path(img_name));
 
-				//printf(" [%d:%d]", x, y);
+				printf(" [%d:%d]", x, y);
 			}
 		}
+
 	}
 
 	// clean up

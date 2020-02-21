@@ -105,6 +105,7 @@ void setMeshView(MooMesh& moomesh)
 		modelview_matrix[14] + 3.0*moomesh.radius);
 	glTranslated(moomesh.translation[0], moomesh.translation[1], moomesh.translation[2]);
 	glMultMatrixd(modelview_matrix);
+	gluLookAt(0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0); //rotate viewpoint
 	glGetDoublev(GL_MODELVIEW_MATRIX, moomesh.modelview_matrix);
 }
 
